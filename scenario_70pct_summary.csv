@@ -1,0 +1,13 @@
+"metric","value"
+"modeled_csmc",211
+"current_logra",99
+"target_70pct_modeled",148
+"additional_csmc_needed_modeled",49
+"additional_completed_packages_modeled",468
+"median_packages_per_rescued_csmc_modeled",9
+"p75_packages_per_rescued_csmc_modeled",15
+"max_packages_per_rescued_csmc_modeled",18
+"all_csmc",268
+"target_70pct_all",188
+"additional_csmc_needed_all",89
+"additional_completed_packages_all",1512

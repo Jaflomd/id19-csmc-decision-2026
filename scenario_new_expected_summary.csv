@@ -1,0 +1,17 @@
+"metric","value"
+"total_csmc",268
+"modeled_csmc",211
+"official_target_logra_point",99
+"old_threshold_target_logra_point",134
+"custom_threshold_20_40_logra_point",148
+"new_expected_target_logra_point",118
+"new_expected_target_no_logra_point",93
+"new_expected_target_no_logra_denom_lt10",0
+"no_modelado",57
+"target_70pct_modeled",148
+"additional_csmc_needed_after_new_expected",30
+"additional_completed_packages_after_new_expected",166
+"remaining_no_logra_new_expected_after_70pct",63
+"median_packages_per_rescued_csmc_new_expected",5.5
+"p75_packages_per_rescued_csmc_new_expected",8
+"max_packages_per_rescued_csmc_new_expected",9

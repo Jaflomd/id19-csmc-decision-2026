@@ -1,0 +1,1479 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ID19 CSMC 2026 · Reporte ejecutivo para decisión</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --paper: #ffffff;
+      --ink: #17202a;
+      --muted: #5b6673;
+      --line: #d9dee7;
+      --critical: #9f1d2f;
+      --critical-soft: #fff1f3;
+      --warn: #8a5a00;
+      --warn-soft: #fff7df;
+      --ok: #136f4b;
+      --ok-soft: #eaf7f1;
+      --blue: #1f5f99;
+      --blue-soft: #eaf3fb;
+      --slate: #2e3b4e;
+      --shadow: 0 16px 40px rgba(17, 24, 39, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.45;
+      letter-spacing: 0;
+    }
+
+    main {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 32px 20px 56px;
+    }
+
+    header {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.7rem);
+      line-height: 1.04;
+      letter-spacing: 0;
+      max-width: 980px;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 1.45rem;
+      line-height: 1.15;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+    }
+
+    p { margin: 0 0 12px; }
+
+    a { color: var(--blue); }
+
+    .subhead {
+      max-width: 900px;
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fbfcfe;
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+
+    section {
+      margin-top: 18px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .alert {
+      border-color: #efb6bf;
+      background: var(--critical-soft);
+    }
+
+    .alert h2, .alert strong { color: var(--critical); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+
+    .card {
+      grid-column: span 3;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: #fbfcfe;
+      min-height: 132px;
+    }
+
+    .card.wide { grid-column: span 6; }
+
+    .metric {
+      display: block;
+      margin: 3px 0 4px;
+      font-size: 2.1rem;
+      line-height: 1;
+      font-weight: 850;
+      color: var(--slate);
+    }
+
+    .metric.critical { color: var(--critical); }
+    .metric.ok { color: var(--ok); }
+    .metric.warn { color: var(--warn); }
+    .metric.blue { color: var(--blue); }
+
+    .label {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      overflow-wrap: anywhere;
+    }
+
+    th, td {
+      padding: 11px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 0.94rem;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    .status {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .status.no { background: var(--critical-soft); color: var(--critical); }
+    .status.yes { background: var(--ok-soft); color: var(--ok); }
+    .status.maybe { background: var(--warn-soft); color: var(--warn); }
+    .status.info { background: var(--blue-soft); color: var(--blue); }
+
+    .bars {
+      display: grid;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 180px 1fr 64px;
+      gap: 10px;
+      align-items: center;
+      font-size: 0.92rem;
+    }
+
+    .track {
+      position: relative;
+      height: 14px;
+      border-radius: 999px;
+      background: #e9edf3;
+      overflow: hidden;
+    }
+
+    .fill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: var(--w);
+      background: var(--c);
+      border-radius: 999px;
+    }
+
+    .decision {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 8px;
+    }
+
+    .decision-box {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: #fbfcfe;
+    }
+
+    .decision-box.default {
+      border-color: #91ceb7;
+      background: var(--ok-soft);
+    }
+
+    ul {
+      margin: 8px 0 0;
+      padding-left: 20px;
+    }
+
+    li { margin: 6px 0; }
+
+    .steps {
+      counter-reset: step;
+      display: grid;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .step {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfe;
+    }
+
+    .step::before {
+      content: counter(step);
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      background: var(--blue);
+      color: white;
+      font-weight: 900;
+    }
+
+    .quiz {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: #fbfcfe;
+    }
+
+    .quiz + .quiz { margin-top: 12px; }
+
+    .quiz-question {
+      margin: 0 0 12px;
+      font-weight: 800;
+    }
+
+    .mcq-options {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+    }
+
+    .choice {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 10px;
+      align-items: center;
+      width: 100%;
+      min-height: 48px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+      color: var(--ink);
+      cursor: pointer;
+      font: inherit;
+      text-align: left;
+    }
+
+    .choice:hover {
+      border-color: #9eb7cf;
+      background: var(--blue-soft);
+    }
+
+    .choice.selected {
+      border-width: 2px;
+      padding: 9px 11px;
+    }
+
+    .choice.correct {
+      border-color: #69b796;
+      background: var(--ok-soft);
+    }
+
+    .choice.incorrect {
+      border-color: #d98290;
+      background: var(--critical-soft);
+    }
+
+    .choice-letter {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: #e9edf3;
+      font-weight: 900;
+    }
+
+    .choice.correct .choice-letter {
+      background: var(--ok);
+      color: white;
+    }
+
+    .choice.incorrect .choice-letter {
+      background: var(--critical);
+      color: white;
+    }
+
+    .feedback {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      font-weight: 750;
+    }
+
+    .feedback:empty { display: none; }
+    .feedback.ok { background: var(--ok-soft); color: #0f5137; border-color: #91ceb7; }
+    .feedback.no { background: var(--critical-soft); color: var(--critical); border-color: #efb6bf; }
+
+    .region-drops {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .region-drop {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfe;
+      overflow: hidden;
+    }
+
+    .region-drop summary {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 13px 16px;
+      cursor: pointer;
+      font-weight: 850;
+    }
+
+    .region-drop summary span:last-child {
+      color: var(--muted);
+      font-weight: 750;
+    }
+
+    .region-drop table {
+      margin: 0;
+      background: white;
+    }
+
+    .sources {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 900px) {
+      .card, .card.wide { grid-column: span 12; }
+      .decision { grid-template-columns: 1fr; }
+      .bar-row { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      body { background: white; }
+      main { max-width: none; padding: 0; }
+      header, section { box-shadow: none; break-inside: avoid; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">Reporte ejecutivo para decisión · ID19 CSMC 2026</p>
+      <h1>Con la meta vigente, menos de la mitad de CSMC modelados lograría el ID19.</h1>
+      <p class="subhead">Este reporte resume el corte ARIMA del indicador ID19 por CSMC con datos 2024 a mayo de 2026. La decisión central es cómo focalizar los centros en riesgo y qué escenario negociar antes del cierre.</p>
+      <div class="meta">
+        <span class="pill">Fecha: 2026-07-13</span>
+        <span class="pill">Unidad primaria: CSMC</span>
+        <span class="pill">Universo: 268 CSMC</span>
+        <span class="pill">Modelados: 211 CSMC</span>
+        <span class="pill">No modelados: 57 CSMC</span>
+      </div>
+    </header>
+
+    <section class="alert">
+      <h2>Problema</h2>
+      <p><strong>Con la meta vigente, solo 99 de 211 CSMC modelados lograrían el ID19: 46.9%.</strong></p>
+      <p>En el escenario operativo actual, 112 de 211 CSMC modelados quedarían por debajo de la meta. Esto equivale a 53.1% de los CSMC modelados.</p>
+      <p>Además, 57 de 268 CSMC no tienen continuidad suficiente para modelarse. Por tanto, el riesgo ejecutivo no es solo bajo cumplimiento; también hay centros donde la decisión necesita mejor información.</p>
+      <p>El problema de decisión es identificar qué CSMC se deben focalizar primero para acercarse a 70% de cumplimiento entre los CSMC modelados.</p>
+    </section>
+
+    <section>
+      <h2>Pregunta</h2>
+      <p>La pregunta de decisión es: ¿qué CSMC requieren focalización para aumentar la probabilidad de alcanzar el ID19 en 2026?</p>
+      <p>La pregunta técnica es: ¿qué CSMC se proyectan como cumplidores, no cumplidores o inciertos usando la trayectoria mensual disponible hasta mayo de 2026?</p>
+      <p>La pregunta de política es: ¿qué regla de logro esperado conviene defender para 2026 sin presentar el corte como medición oficial final?</p>
+    </section>
+
+    <section>
+      <h2>Por qué es importante</h2>
+      <div class="grid">
+        <div class="card wide">
+          <h3>Prioriza recursos</h3>
+          <p>Permite ubicar CSMC cercanos a la meta donde pocos paquetes completos adicionales sobre la trayectoria proyectada pueden cambiar la clasificación.</p>
+        </div>
+        <div class="card wide">
+          <h3>Ordena la negociación</h3>
+          <p>Compara meta vigente, logro esperado nuevo y umbral transitorio con cifras concretas.</p>
+        </div>
+        <div class="card wide">
+          <h3>Reduce riesgo ejecutivo</h3>
+          <p>Separa el uso operativo del uso oficial y evita tomar una cifra exploratoria como cierre administrativo.</p>
+        </div>
+        <div class="card wide">
+          <h3>Hace visible la incertidumbre</h3>
+          <p>Muestra que muchos CSMC cruzan la meta dentro del intervalo de incertidumbre y no deben leerse como certeza.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Qué se hizo</h2>
+      <div class="steps">
+        <div class="step">
+          <div>
+            <h3>Se integró la base CSMC-mes</h3>
+            <p>Se armonizaron 268 CSMC usando RENAES como llave y el nombre del CSMC como etiqueta.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Se ajustó un corte ARIMA operativo</h3>
+            <p>Se modelaron 211 CSMC con trayectoria suficiente entre 2024 y mayo de 2026.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Se proyectó cumplimiento 2026</h3>
+            <p>Se transformó el pronóstico mensual en una clasificación operativa de cumplimiento, no en medición oficial por DNI/CE.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Se probaron escenarios de decisión</h3>
+            <p>Se comparó meta vigente, valor umbral, umbral transitorio 20%-40% y logro esperado nuevo 30%-50%.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Se hizo sensibilidad por número de médicos</h3>
+            <p>Se cruzó el monitoreo de funcionamiento CSMC al 2026-06-12 con los resultados ID19 para evaluar si la dotación médica cambia la priorización.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Se hizo sensibilidad por número de psicólogos</h3>
+            <p>Se descargó REUNIS/INFORHUS mayo 2026 y se cruzó el número de psicólogos por RENAES con los resultados ID19.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Se hizo sensibilidad por número de enfermeros</h3>
+            <p>Se usó la profesión REUNIS <code>ENFERMERA(O)</code> para evaluar si la dotación de enfermería cambia la lectura de capacidad.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Se hizo sensibilidad por personal total</h3>
+            <p>Se usó REUNIS/INFORHUS mayo 2026 para evaluar si la dotación total de personal cambia el cumplimiento estimado o la focalización recomendada.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Resultados</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="label">CSMC con modelo ARIMA</span>
+          <span class="metric blue">211</span>
+          <span class="note">De 268 CSMC totales.</span>
+        </div>
+        <div class="card">
+          <span class="label">Cumplen meta vigente, punto estimado</span>
+          <span class="metric ok">99</span>
+          <span class="note">46.9% de los modelados.</span>
+        </div>
+        <div class="card">
+          <span class="label">No cumplen meta vigente</span>
+          <span class="metric critical">112</span>
+          <span class="note">105 por indicador bajo meta y 7 por denominador &lt;30.</span>
+        </div>
+        <div class="card">
+          <span class="label">Incertidumbre principal</span>
+          <span class="metric warn">162</span>
+          <span class="note">CSMC con intervalo IC95 que cruza la meta.</span>
+        </div>
+      </div>
+
+      <div class="bars" aria-label="Distribución de clasificación puntual">
+        <div class="bar-row">
+          <span>Logra meta vigente</span>
+          <div class="track"><div class="fill" style="--w:46.9%;--c:var(--ok);"></div></div>
+          <strong>99</strong>
+        </div>
+        <div class="bar-row">
+          <span>No logra meta vigente</span>
+          <div class="track"><div class="fill" style="--w:49.8%;--c:var(--critical);"></div></div>
+          <strong>105</strong>
+        </div>
+        <div class="bar-row">
+          <span>No logra por denominador &lt;30</span>
+          <div class="track"><div class="fill" style="--w:3.3%;--c:var(--warn);"></div></div>
+          <strong>7</strong>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Lectura para decidir</h2>
+      <div class="decision">
+        <div class="decision-box default">
+          <h3>Recomendación táctica</h3>
+          <p>Usar el reporte como corte operativo 2026 y defender el escenario de logro esperado nuevo de 30% a 50%, acompañado de focalización mínima de 30 CSMC.</p>
+          <p><strong>Implicación:</strong> 166 paquetes completos adicionales sobre la trayectoria proyectada para llegar a 70% entre CSMC modelados.</p>
+        </div>
+        <div class="decision-box">
+          <h3>Condición para uso oficial</h3>
+          <p>Antes de declarar cumplimiento oficial, resolver la ventana de evaluación, deduplicación por DNI/CE y reconciliación de fuentes CG19.</p>
+          <p><strong>Implicación:</strong> el número final puede cambiar después de corregir la definición del desenlace.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Opciones de decisión</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Opción</th>
+            <th>Resultado estimado</th>
+            <th>Uso recomendado</th>
+            <th>Riesgo ejecutivo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Mantener meta vigente oficial</strong></td>
+            <td>99/211 CSMC cumplen. Para llegar a 70% faltan 49 CSMC y 468 paquetes completos adicionales sobre la trayectoria proyectada.</td>
+            <td><span class="status maybe">Gestión dura</span></td>
+            <td>Exige intervención amplia y todavía no reproduce la medición oficial por DNI/CE.</td>
+          </tr>
+          <tr>
+            <td><strong>Logro esperado nuevo 30%-50%</strong></td>
+            <td>118/211 cumplen. Para llegar a 70% faltan 30 CSMC y 166 paquetes completos adicionales sobre la trayectoria proyectada.</td>
+            <td><span class="status yes">Default recomendado</span></td>
+            <td>Requiere focalización real, pero mantiene una exigencia defendible.</td>
+          </tr>
+          <tr>
+            <td><strong>Umbral transitorio 20%-40%</strong></td>
+            <td>148/211 cumplen. Llega a 70.1% sin paquetes adicionales.</td>
+            <td><span class="status info">Solo negociación</span></td>
+            <td>Alcanza la meta por cambio de regla. Puede percibirse como criterio demasiado bajo.</td>
+          </tr>
+          <tr>
+            <td><strong>Rehacer con definición oficial</strong></td>
+            <td>Resultado pendiente hasta usar ventana oficial y personas únicas.</td>
+            <td><span class="status yes">Necesario para cierre oficial</span></td>
+            <td>Demora la decisión, pero reduce error de clasificación.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Focalización si se adopta el logro esperado nuevo</h2>
+      <p>El escenario recomendado exige focalizar 30 CSMC. La carga estimada se concentra en estas regiones.</p>
+      <p class="note"><strong>Interpretación:</strong> estos son paquetes completos adicionales sobre la trayectoria proyectada anual. No son el total anual; se suman a lo ya cerrado y a lo que el CSMC seguiría cerrando si mantiene su ritmo.</p>
+      <div class="region-drops">
+        <details class="region-drop">
+          <summary><span>Arequipa</span><span>4 CSMC · 24 paquetes</span></summary>
+          <table>
+            <thead><tr><th>RENAES</th><th>CSMC</th><th>Paquetes adicionales sobre trayectoria proyectada</th></tr></thead>
+            <tbody>
+              <tr><td>00023488</td><td>Centro de Salud Mental Comunitario Simón Bolívar</td><td>4</td></tr>
+              <tr><td>00024409</td><td>Centro de Salud Mental Comunitario La Real C.C.U.</td><td>5</td></tr>
+              <tr><td>00027843</td><td>Centro de Salud Mental Comunitario San Martín de Porres</td><td>6</td></tr>
+              <tr><td>00025066</td><td>Centro de Salud Mental Comunitario Ayelen</td><td>9</td></tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="region-drop">
+          <summary><span>Cusco</span><span>3 CSMC · 22 paquetes</span></summary>
+          <table>
+            <thead><tr><th>RENAES</th><th>CSMC</th><th>Paquetes adicionales sobre trayectoria proyectada</th></tr></thead>
+            <tbody>
+              <tr><td>00026386</td><td>Mental Quillabamba</td><td>6</td></tr>
+              <tr><td>00026182</td><td>Mental Santiago</td><td>7</td></tr>
+              <tr><td>00033988</td><td>Mental Comunitario Pichari</td><td>9</td></tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="region-drop">
+          <summary><span>Junín</span><span>3 CSMC · 18 paquetes</span></summary>
+          <table>
+            <thead><tr><th>RENAES</th><th>CSMC</th><th>Paquetes adicionales sobre trayectoria proyectada</th></tr></thead>
+            <tbody>
+              <tr><td>00027079</td><td>Centro de Salud Mental Comunitario Tarma</td><td>1</td></tr>
+              <tr><td>00028949</td><td>Centro de Salud Mental Comunitario Yauyos</td><td>8</td></tr>
+              <tr><td>00032541</td><td>Centro de Salud Mental Comunitario Pangoa</td><td>9</td></tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="region-drop">
+          <summary><span>Cajamarca</span><span>3 CSMC · 17 paquetes</span></summary>
+          <table>
+            <thead><tr><th>RENAES</th><th>CSMC</th><th>Paquetes adicionales sobre trayectoria proyectada</th></tr></thead>
+            <tbody>
+              <tr><td>00026186</td><td>Centro de Salud Mental Comunitario Renacer</td><td>1</td></tr>
+              <tr><td>00025207</td><td>Centro de Salud Mental Comunitario Jaén</td><td>7</td></tr>
+              <tr><td>00032624</td><td>Centro de Salud Mental Comunitario Fe y Esperanza</td><td>9</td></tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="region-drop">
+          <summary><span>Tumbes</span><span>2 CSMC · 14 paquetes</span></summary>
+          <table>
+            <thead><tr><th>RENAES</th><th>CSMC</th><th>Paquetes adicionales sobre trayectoria proyectada</th></tr></thead>
+            <tbody>
+              <tr><td>00028923</td><td>Centro de Salud Mental Comunitario Virgen del Cisne</td><td>5</td></tr>
+              <tr><td>00026856</td><td>Centro de Salud Mental Comunitario Lic. Enf. Silvia Violeta Conde Sosa</td><td>9</td></tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="region-drop">
+          <summary><span>Lima Región</span><span>2 CSMC · 12 paquetes</span></summary>
+          <table>
+            <thead><tr><th>RENAES</th><th>CSMC</th><th>Paquetes adicionales sobre trayectoria proyectada</th></tr></thead>
+            <tbody>
+              <tr><td>00029483</td><td>Centro de Salud Mental Comunitario El Sol</td><td>4</td></tr>
+              <tr><td>00029481</td><td>Centro de Salud Mental Comunitario Aucallama</td><td>8</td></tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="region-drop">
+          <summary><span>Lima DIRIS Norte</span><span>2 CSMC · 9 paquetes</span></summary>
+          <table>
+            <thead><tr><th>RENAES</th><th>CSMC</th><th>Paquetes adicionales sobre trayectoria proyectada</th></tr></thead>
+            <tbody>
+              <tr><td>00027247</td><td>Centro de Salud Mental Comunitario Illarimun (Amanecer)</td><td>3</td></tr>
+              <tr><td>00027244</td><td>Centro de Salud Mental Comunitario Asiri (Sonrisa)</td><td>6</td></tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="region-drop">
+          <summary><span>Puno</span><span>2 CSMC · 8 paquetes</span></summary>
+          <table>
+            <thead><tr><th>RENAES</th><th>CSMC</th><th>Paquetes adicionales sobre trayectoria proyectada</th></tr></thead>
+            <tbody>
+              <tr><td>00029844</td><td>Centro de Salud Mental Comunitario San Miguel Arcángel</td><td>2</td></tr>
+              <tr><td>00029841</td><td>Centro de Salud Mental Comunitario Divino Niño Jesús</td><td>6</td></tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="region-drop">
+          <summary><span>Pasco</span><span>2 CSMC · 6 paquetes</span></summary>
+          <table>
+            <thead><tr><th>RENAES</th><th>CSMC</th><th>Paquetes adicionales sobre trayectoria proyectada</th></tr></thead>
+            <tbody>
+              <tr><td>00026900</td><td>Centro de Salud Mental Comunitario</td><td>3</td></tr>
+              <tr><td>00031428</td><td>Centro de Salud Mental Comunitario Daniel A. Carrión</td><td>3</td></tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="region-drop">
+          <summary><span>Amazonas</span><span>1 CSMC · 4 paquetes</span></summary>
+          <table>
+            <thead><tr><th>RENAES</th><th>CSMC</th><th>Paquetes adicionales sobre trayectoria proyectada</th></tr></thead>
+            <tbody>
+              <tr><td>00027435</td><td>Centro de Salud Mental Comunitario Creeser</td><td>4</td></tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="region-drop">
+          <summary><span>Apurímac</span><span>1 CSMC · 5 paquetes</span></summary>
+          <table>
+            <thead><tr><th>RENAES</th><th>CSMC</th><th>Paquetes adicionales sobre trayectoria proyectada</th></tr></thead>
+            <tbody>
+              <tr><td>00030686</td><td>Centro de Salud Mental Comunitario San Jerónimo</td><td>5</td></tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="region-drop">
+          <summary><span>Ayacucho</span><span>1 CSMC · 9 paquetes</span></summary>
+          <table>
+            <thead><tr><th>RENAES</th><th>CSMC</th><th>Paquetes adicionales sobre trayectoria proyectada</th></tr></thead>
+            <tbody>
+              <tr><td>00026014</td><td>Centro de Salud Mental Comunitario Bella Esmeralda - Huanta</td><td>9</td></tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="region-drop">
+          <summary><span>Lima DIRIS Centro</span><span>1 CSMC · 1 paquete</span></summary>
+          <table>
+            <thead><tr><th>RENAES</th><th>CSMC</th><th>Paquetes adicionales sobre trayectoria proyectada</th></tr></thead>
+            <tbody>
+              <tr><td>00027703</td><td>Centro de Salud Mental Comunitario Honorio Delgado</td><td>1</td></tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="region-drop">
+          <summary><span>Loreto</span><span>1 CSMC · 3 paquetes</span></summary>
+          <table>
+            <thead><tr><th>RENAES</th><th>CSMC</th><th>Paquetes adicionales sobre trayectoria proyectada</th></tr></thead>
+            <tbody>
+              <tr><td>00031810</td><td>Centro de Salud Mental Comunitario I 3 - Contamana</td><td>3</td></tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="region-drop">
+          <summary><span>Moquegua</span><span>1 CSMC · 9 paquetes</span></summary>
+          <table>
+            <thead><tr><th>RENAES</th><th>CSMC</th><th>Paquetes adicionales sobre trayectoria proyectada</th></tr></thead>
+            <tbody>
+              <tr><td>00021101</td><td>Centro de Salud Mental Comunitario Moquegua</td><td>9</td></tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="region-drop">
+          <summary><span>Piura</span><span>1 CSMC · 5 paquetes</span></summary>
+          <table>
+            <thead><tr><th>RENAES</th><th>CSMC</th><th>Paquetes adicionales sobre trayectoria proyectada</th></tr></thead>
+            <tbody>
+              <tr><td>00033982</td><td>Centro de Salud Mental Comunitario Huancabamba</td><td>5</td></tr>
+            </tbody>
+          </table>
+        </details>
+      </div>
+      <p class="note">Total: 30 CSMC y 166 paquetes completos adicionales sobre la trayectoria proyectada.</p>
+    </section>
+
+    <section>
+      <h2>Sensibilidad por número de médicos</h2>
+      <p><strong>Resultado ejecutivo:</strong> el número de médicos cambia la lectura de capacidad, pero no cambia la recomendación principal si el objetivo es llegar a 70% por la ruta más rápida.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="label">CSMC ID19 con dato de médicos</span>
+          <span class="metric blue">263</span>
+          <span class="note">De 268 CSMC del análisis.</span>
+        </div>
+        <div class="card">
+          <span class="label">CSMC modelados con dato de médicos</span>
+          <span class="metric blue">209</span>
+          <span class="note">De 211 CSMC modelados.</span>
+        </div>
+        <div class="card">
+          <span class="label">Bajo logro nuevo con 0-1 médico</span>
+          <span class="metric warn">17</span>
+          <span class="note">Requieren capa de apoyo de RRHH.</span>
+        </div>
+        <div class="card">
+          <span class="label">0-1 médico en lista rápida</span>
+          <span class="metric ok">3</span>
+          <span class="note">De los 30 CSMC focalizados.</span>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Grupo según médicos</th>
+            <th>CSMC modelados</th>
+            <th>Logran meta vigente</th>
+            <th>% que logra</th>
+            <th>Lectura</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>0-1 médico</td>
+            <td>35</td>
+            <td>15</td>
+            <td>42.9%</td>
+            <td>Riesgo de capacidad. No basta con pedir más paquetes adicionales sobre la trayectoria proyectada.</td>
+          </tr>
+          <tr>
+            <td>2 médicos</td>
+            <td>114</td>
+            <td>50</td>
+            <td>43.9%</td>
+            <td>Resultado similar al grupo de 0-1 médico.</td>
+          </tr>
+          <tr>
+            <td>3+ médicos</td>
+            <td>60</td>
+            <td>33</td>
+            <td>55.0%</td>
+            <td>Mejor desempeño puntual, pero aún insuficiente para cerrar la brecha.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Estrategia de focalización</th>
+            <th>CSMC</th>
+            <th>Paquetes adicionales sobre trayectoria proyectada</th>
+            <th>CSMC con 0-1 médico</th>
+            <th>Conclusión</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ruta rápida a 70%</td>
+            <td>30</td>
+            <td>166</td>
+            <td>3</td>
+            <td>Mantiene la recomendación operativa actual.</td>
+          </tr>
+          <tr>
+            <td>Priorizar primero déficit médico</td>
+            <td>30</td>
+            <td>450</td>
+            <td>17</td>
+            <td>Cambia la lista y encarece el rescate. Solo comparte 16 CSMC con la ruta rápida.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <details class="region-drop">
+        <summary><span>CSMC bajo logro esperado nuevo con 0-1 médico</span><span>17 CSMC · 399 paquetes adicionales si se rescatan todos</span></summary>
+        <table>
+          <thead>
+            <tr>
+              <th>RENAES</th>
+              <th>CSMC</th>
+              <th>Región</th>
+              <th>Médicos</th>
+              <th>Psiquiatras</th>
+              <th>En ruta rápida</th>
+              <th>Paquetes adicionales sobre trayectoria proyectada</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>00031810</td><td>Centro de Salud Mental Comunitario I 3 - Contamana</td><td>Loreto</td><td>1</td><td>1</td><td>Sí</td><td>3</td></tr>
+            <tr><td>00030686</td><td>Centro de Salud Mental Comunitario San Jerónimo</td><td>Apurímac</td><td>1</td><td>0</td><td>Sí</td><td>5</td></tr>
+            <tr><td>00027843</td><td>Centro de Salud Mental Comunitario San Martín de Porres</td><td>Arequipa</td><td>1</td><td>1</td><td>Sí</td><td>6</td></tr>
+            <tr><td>00027069</td><td>Centro de Salud Mental Comunitario Esperanza de Vida</td><td>Cajamarca</td><td>1</td><td>0</td><td>No</td><td>10</td></tr>
+            <tr><td>00032158</td><td>Centro de Salud Mental Comunitario Ventanilla Norte</td><td>Callao</td><td>1</td><td>1</td><td>No</td><td>11</td></tr>
+            <tr><td>00027728</td><td>Centro de Salud Mental Comunitario Nuevo Perú</td><td>Lima DIRIS Centro</td><td>1</td><td>0</td><td>No</td><td>15</td></tr>
+            <tr><td>00030346</td><td>Centro de Salud Mental Comunitario Socabaya</td><td>Arequipa</td><td>1</td><td>1</td><td>No</td><td>17</td></tr>
+            <tr><td>00027082</td><td>Centro de Salud Mental Comunitario Intercultural Datem del Marañón</td><td>Loreto</td><td>1</td><td>0</td><td>No</td><td>17</td></tr>
+            <tr><td>00025933</td><td>Centro de Salud Mental Comunitario Túpac Amaru</td><td>Ica</td><td>1</td><td>0</td><td>No</td><td>20</td></tr>
+            <tr><td>00023969</td><td>Centro de Salud Mental Comunitario Majes</td><td>Arequipa</td><td>0</td><td>0</td><td>No</td><td>22</td></tr>
+            <tr><td>00027598</td><td>Centro de Salud Mental Comunitario Iquitos</td><td>Loreto</td><td>1</td><td>0</td><td>No</td><td>22</td></tr>
+            <tr><td>00027572</td><td>Centro de Salud Mental Comunitario Punchana</td><td>Loreto</td><td>1</td><td>1</td><td>No</td><td>24</td></tr>
+            <tr><td>00026052</td><td>Centro de Salud Comunitario Uka Yaki Tsa Wa</td><td>Loreto</td><td>1</td><td>1</td><td>No</td><td>24</td></tr>
+            <tr><td>00028745</td><td>Centro de Salud Mental Comunitario Plenitud</td><td>Cajamarca</td><td>1</td><td>0</td><td>No</td><td>28</td></tr>
+            <tr><td>00034011</td><td>Centro de Salud Mental Comunitario Caminando Juntos</td><td>Cajamarca</td><td>1</td><td>0</td><td>No</td><td>45</td></tr>
+            <tr><td>00031271</td><td>Centro de Salud Mental Comunitario Universitario Callao</td><td>Callao</td><td>1</td><td>1</td><td>No</td><td>49</td></tr>
+            <tr><td>00030800</td><td>Centro de Salud Mental Comunitario Nauta</td><td>Loreto</td><td>1</td><td>0</td><td>No</td><td>81</td></tr>
+          </tbody>
+        </table>
+      </details>
+      <p class="note">Lectura: mantener la ruta rápida para alcanzar 70%, y abrir una segunda capa de gestión para RRHH o teleapoyo en los CSMC con 0-1 médico.</p>
+    </section>
+
+    <section>
+      <h2>Sensibilidad por número de psicólogos</h2>
+      <p><strong>Resultado ejecutivo:</strong> la dotación de psicólogos agrega una alerta de capacidad, pero no reemplaza la ruta rápida de 30 CSMC y 166 paquetes adicionales sobre la trayectoria proyectada.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="label">CSMC ID19 con registro REUNIS</span>
+          <span class="metric blue">264</span>
+          <span class="note">De 268 CSMC del análisis.</span>
+        </div>
+        <div class="card">
+          <span class="label">CSMC con psicólogos &gt;0</span>
+          <span class="metric ok">261</span>
+          <span class="note">Solo 3 aparecen con 0 psicólogos.</span>
+        </div>
+        <div class="card">
+          <span class="label">Bajo logro nuevo con 0-3 psicólogos</span>
+          <span class="metric warn">3</span>
+          <span class="note">Dentro de 93 candidatos bajo meta nueva.</span>
+        </div>
+        <div class="card">
+          <span class="label">0-3 psicólogos en lista rápida</span>
+          <span class="metric ok">2</span>
+          <span class="note">De los 30 CSMC focalizados.</span>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Grupo según psicólogos</th>
+            <th>CSMC modelados</th>
+            <th>Logran meta vigente</th>
+            <th>% que logra</th>
+            <th>Lectura</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>0-3 psicólogos</td>
+            <td>10</td>
+            <td>4</td>
+            <td>40.0%</td>
+            <td>Pocos casos. Señal de capacidad, no criterio único.</td>
+          </tr>
+          <tr>
+            <td>4-6 psicólogos</td>
+            <td>41</td>
+            <td>15</td>
+            <td>36.6%</td>
+            <td>Grupo con menor cumplimiento puntual.</td>
+          </tr>
+          <tr>
+            <td>7-9 psicólogos</td>
+            <td>103</td>
+            <td>54</td>
+            <td>52.4%</td>
+            <td>Mejor desempeño puntual del corte.</td>
+          </tr>
+          <tr>
+            <td>10+ psicólogos</td>
+            <td>56</td>
+            <td>26</td>
+            <td>46.4%</td>
+            <td>No muestra mejora monotónica frente a 7-9.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Estrategia de focalización</th>
+            <th>CSMC</th>
+            <th>Paquetes adicionales sobre trayectoria proyectada</th>
+            <th>CSMC con 0-3 psicólogos</th>
+            <th>Conclusión</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ruta rápida a 70%</td>
+            <td>30</td>
+            <td>166</td>
+            <td>2</td>
+            <td>Mantiene la recomendación operativa actual.</td>
+          </tr>
+          <tr>
+            <td>Priorizar menor dotación psicológica como criterio principal</td>
+            <td>30</td>
+            <td>481</td>
+            <td>3</td>
+            <td>Cambia bastante la lista y encarece el rescate.</td>
+          </tr>
+          <tr>
+            <td>Excluir CSMC con 0-3 psicólogos de la ruta rápida</td>
+            <td>30</td>
+            <td>174</td>
+            <td>0</td>
+            <td>Sube poco el costo: 166 a 174 paquetes adicionales sobre la trayectoria proyectada.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <details class="region-drop">
+        <summary><span>CSMC bajo logro esperado nuevo con 0-3 psicólogos</span><span>3 CSMC · 34 paquetes adicionales si se rescatan todos</span></summary>
+        <table>
+          <thead>
+            <tr>
+              <th>RENAES</th>
+              <th>CSMC</th>
+              <th>Región</th>
+              <th>Psicólogos</th>
+              <th>En ruta rápida</th>
+              <th>Paquetes adicionales sobre trayectoria proyectada</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>00031810</td><td>Centro de Salud Mental Comunitario I 3 - Contamana</td><td>Loreto</td><td>3</td><td>Sí</td><td>3</td></tr>
+            <tr><td>00033988</td><td>Mental Comunitario Pichari</td><td>Cusco</td><td>3</td><td>Sí</td><td>9</td></tr>
+            <tr><td>00029190</td><td>Centro de Salud Mental Comunitario Coloreando Tu Vida</td><td>Cajamarca</td><td>3</td><td>No</td><td>22</td></tr>
+          </tbody>
+        </table>
+      </details>
+      <p class="note">Lectura: la baja dotación psicológica afecta a pocos candidatos bajo el logro esperado nuevo. Mantener la ruta rápida y usar esta lista como alerta de capacidad clínica.</p>
+    </section>
+
+    <section>
+      <h2>Sensibilidad por número de enfermeros</h2>
+      <p><strong>Resultado ejecutivo:</strong> sí tenemos el dato y es útil. La dotación de enfermeros muestra un gradiente más claro que psicólogos y personal total: a mayor número de enfermeros, mayor cumplimiento puntual.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="label">CSMC modelados con dato</span>
+          <span class="metric blue">210</span>
+          <span class="note">De 211 CSMC modelados.</span>
+        </div>
+        <div class="card">
+          <span class="label">Mediana de enfermeros</span>
+          <span class="metric blue">5</span>
+          <span class="note">Por CSMC modelado.</span>
+        </div>
+        <div class="card">
+          <span class="label">0-3 enfermeros: logran meta vigente</span>
+          <span class="metric critical">37.0%</span>
+          <span class="note">46 CSMC modelados.</span>
+        </div>
+        <div class="card">
+          <span class="label">8+ enfermeros: logran meta vigente</span>
+          <span class="metric ok">73.3%</span>
+          <span class="note">30 CSMC modelados.</span>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Grupo según enfermeros</th>
+            <th>CSMC modelados</th>
+            <th>Logran meta vigente</th>
+            <th>% que logra</th>
+            <th>Lectura</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>0-3 enfermeros</td>
+            <td>46</td>
+            <td>17</td>
+            <td>37.0%</td>
+            <td>Grupo de mayor alerta operativa.</td>
+          </tr>
+          <tr>
+            <td>4-5 enfermeros</td>
+            <td>75</td>
+            <td>31</td>
+            <td>41.3%</td>
+            <td>Mejora pequeña frente a 0-3.</td>
+          </tr>
+          <tr>
+            <td>6-7 enfermeros</td>
+            <td>59</td>
+            <td>28</td>
+            <td>47.5%</td>
+            <td>Mejor desempeño intermedio.</td>
+          </tr>
+          <tr>
+            <td>8+ enfermeros</td>
+            <td>30</td>
+            <td>22</td>
+            <td>73.3%</td>
+            <td>Señal fuerte de capacidad, pero con tamaño de grupo menor.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Estrategia de focalización</th>
+            <th>CSMC</th>
+            <th>Paquetes adicionales sobre trayectoria proyectada</th>
+            <th>Solapamiento con ruta rápida</th>
+            <th>Conclusión</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ruta rápida a 70%</td>
+            <td>30</td>
+            <td>166</td>
+            <td>30/30</td>
+            <td>Mantiene la decisión recomendada.</td>
+          </tr>
+          <tr>
+            <td>Priorizar menor dotación de enfermería primero</td>
+            <td>30</td>
+            <td>532</td>
+            <td>10/30</td>
+            <td>Útil para soporte, pero no para rescate rápido.</td>
+          </tr>
+          <tr>
+            <td>Priorizar mayor dotación de enfermería primero</td>
+            <td>30</td>
+            <td>580</td>
+            <td>11/30</td>
+            <td>No conviene como regla principal: trae centros con brechas muy grandes.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="note">Lectura: enfermería sí debe entrar como semáforo de capacidad. No cambia la ruta rápida, pero sí justifica soporte operativo específico para CSMC con 0-3 enfermeros.</p>
+    </section>
+
+    <section>
+      <h2>Sensibilidad por personal total REUNIS</h2>
+      <p><strong>Resultado ejecutivo:</strong> sí sirve como lectura de capacidad. Los CSMC con más personal total tienen mejor cumplimiento puntual, pero priorizar por personal total no mejora la ruta rápida y aumenta los paquetes adicionales requeridos sobre la trayectoria proyectada.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="label">CSMC modelados con REUNIS</span>
+          <span class="metric blue">210</span>
+          <span class="note">De 211 CSMC modelados.</span>
+        </div>
+        <div class="card">
+          <span class="label">Mediana de personal total</span>
+          <span class="metric blue">26</span>
+          <span class="note">Personal registrado por CSMC modelado.</span>
+        </div>
+        <div class="card">
+          <span class="label">31+ personas: logran meta vigente</span>
+          <span class="metric ok">54.2%</span>
+          <span class="note">48 CSMC modelados.</span>
+        </div>
+        <div class="card">
+          <span class="label">38+ personas: logran meta vigente</span>
+          <span class="metric ok">62.5%</span>
+          <span class="note">Solo 16 CSMC; señal pequeña.</span>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Grupo según personal total</th>
+            <th>CSMC modelados</th>
+            <th>Logran meta vigente</th>
+            <th>% que logra</th>
+            <th>Lectura</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>≤23 personas</td>
+            <td>56</td>
+            <td>26</td>
+            <td>46.4%</td>
+            <td>Riesgo operativo. La dotación baja no impide cumplimiento, pero exige soporte.</td>
+          </tr>
+          <tr>
+            <td>24-26 personas</td>
+            <td>50</td>
+            <td>22</td>
+            <td>44.0%</td>
+            <td>Resultado similar al grupo de menor dotación.</td>
+          </tr>
+          <tr>
+            <td>27-30 personas</td>
+            <td>56</td>
+            <td>25</td>
+            <td>44.6%</td>
+            <td>No muestra salto de desempeño frente a 24-26.</td>
+          </tr>
+          <tr>
+            <td>31+ personas</td>
+            <td>48</td>
+            <td>26</td>
+            <td>54.2%</td>
+            <td>Mejor desempeño puntual. Aun así, casi la mitad no logra la meta vigente.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Estrategia de focalización</th>
+            <th>CSMC</th>
+            <th>Paquetes adicionales sobre trayectoria proyectada</th>
+            <th>Solapamiento con ruta rápida</th>
+            <th>Conclusión</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ruta rápida a 70%</td>
+            <td>30</td>
+            <td>166</td>
+            <td>30/30</td>
+            <td>Mantiene la decisión recomendada.</td>
+          </tr>
+          <tr>
+            <td>Priorizar menor personal total primero</td>
+            <td>30</td>
+            <td>330</td>
+            <td>14/30</td>
+            <td>Sirve para gestión de soporte, pero encarece el rescate operativo.</td>
+          </tr>
+          <tr>
+            <td>Priorizar mayor personal total primero</td>
+            <td>30</td>
+            <td>523</td>
+            <td>16/30</td>
+            <td>No conviene como regla principal: selecciona CSMC con brechas más grandes.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="note">Lectura: el personal total debe usarse como semáforo de capacidad de implementación. No debe reemplazar la ruta rápida de 30 CSMC y 166 paquetes adicionales sobre la trayectoria proyectada.</p>
+    </section>
+
+    <section>
+      <h2>Regiones con presión de gestión</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Región</th>
+            <th>Lectura puntual</th>
+            <th>Razón para priorizar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Lima Región</td>
+            <td>1 logra, 9 no logran, 1 no modelado.</td>
+            <td>Bajo cumplimiento entre CSMC modelados: 10.0%.</td>
+          </tr>
+          <tr>
+            <td>Arequipa</td>
+            <td>1 logra, 8 no logran, 5 no modelados.</td>
+            <td>Brecha alta y continuidad insuficiente en varios centros.</td>
+          </tr>
+          <tr>
+            <td>Loreto</td>
+            <td>0 logran, 8 no logran, 1 no modelado.</td>
+            <td>Cero CSMC modelado aparece como cumplidor en el punto estimado.</td>
+          </tr>
+          <tr>
+            <td>Cajamarca</td>
+            <td>2 logran, 8 no logran, 2 no modelados.</td>
+            <td>Muchos centros bajo meta, pero varios están cerca de rescate.</td>
+          </tr>
+          <tr>
+            <td>Puno</td>
+            <td>4 logran, 8 no logran, 3 no modelados.</td>
+            <td>Volumen alto de CSMC bajo meta.</td>
+          </tr>
+          <tr>
+            <td>Piura</td>
+            <td>4 logran, 5 no logran, 8 no modelados.</td>
+            <td>Mayor cantidad de CSMC no modelados; requiere revisión de continuidad.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Riesgos que bloquean uso oficial</h2>
+      <div class="grid">
+        <div class="card wide">
+          <h3>Definición oficial del desenlace</h3>
+          <p>La ficha usa personas únicas por DNI/CE. El corte actual usa acumulados mensuales sin deduplicación.</p>
+          <span class="status no">Bloquea uso oficial</span>
+        </div>
+        <div class="card wide">
+          <h3>Ventana de evaluación</h3>
+          <p>La fuente técnica apunta a una ventana 2025-04-07 a 2026-04-06. El análisis proyecta enero a diciembre de 2026.</p>
+          <span class="status no">Bloquea comparabilidad</span>
+        </div>
+        <div class="card wide">
+          <h3>Fuentes canónicas CG19</h3>
+          <p>Los extractos usados deben reconciliarse contra las pestañas canónicas del DL 1153 para 2025 y 2026.</p>
+          <span class="status maybe">Pendiente</span>
+        </div>
+        <div class="card wide">
+          <h3>Incertidumbre del modelo</h3>
+          <p>Solo 22 CSMC logran de forma robusta por IC95. La mayoría cruza la meta y debe tratarse como incierta.</p>
+          <span class="status maybe">Alta incertidumbre</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Recomendaciones</h2>
+      <div class="steps">
+        <div class="step">
+          <div>
+            <h3>Congelar este HTML como corte exploratorio</h3>
+            <p>Rotularlo como insumo operativo 2026, no como medición oficial final.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Elegir escenario para reunión ejecutiva</h3>
+            <p>Default: logro esperado nuevo 30%-50% con focalización de 30 CSMC y 166 paquetes adicionales sobre la trayectoria proyectada.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Resolver definición oficial</h3>
+            <p>Confirmar ventana, regla de 269 días frente al intervalo anual y posibilidad de agregados únicos por DNI/CE.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Reconciliar fuentes CG19</h3>
+            <p>Comparar los extractos usados contra las pestañas canónicas del DL 1153 para 2025 y 2026.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3>Regenerar versión oficial si hay datos suficientes</h3>
+            <p>Usar conteos de personas únicas o documentar de forma explícita que el outcome es operativo, no oficial.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Fuentes internas usadas</h2>
+      <p class="sources">Reporte técnico: <a href="ARIMA-INDICATOR-REPORT.md">ARIMA-INDICATOR-REPORT.md</a>.</p>
+      <p class="sources">Resumen puntual: <a href="arima_id19_compliance_summary.csv">arima_id19_compliance_summary.csv</a>.</p>
+      <p class="sources">Resumen con IC95: <a href="arima_id19_compliance_ci95_summary.csv">arima_id19_compliance_ci95_summary.csv</a>.</p>
+      <p class="sources">Escenario 70%: <a href="scenario_70pct_summary.csv">scenario_70pct_summary.csv</a>.</p>
+      <p class="sources">Escenario logro esperado nuevo: <a href="scenario_new_expected_summary.csv">scenario_new_expected_summary.csv</a>.</p>
+      <p class="sources">Sensibilidad por médicos: <a href="DOCTOR-SENSITIVITY-REPORT.md">DOCTOR-SENSITIVITY-REPORT.md</a>.</p>
+      <p class="sources">Cruce CSMC-médicos-ID19: <a href="doctor_sensitivity_joined_by_csmc.csv">doctor_sensitivity_joined_by_csmc.csv</a>.</p>
+      <p class="sources">Sensibilidad por psicólogos: <a href="PSYCHOLOGIST-SENSITIVITY-REPORT.md">PSYCHOLOGIST-SENSITIVITY-REPORT.md</a>.</p>
+      <p class="sources">Cruce CSMC-psicólogos-ID19: <a href="psychologist_sensitivity_joined_by_csmc.csv">psychologist_sensitivity_joined_by_csmc.csv</a>.</p>
+      <p class="sources">Psicólogos REUNIS por CSMC: <a href="reunis_psicologos_csmc_mayo2026.csv">reunis_psicologos_csmc_mayo2026.csv</a>.</p>
+      <p class="sources">Sensibilidad por enfermeros: <a href="NURSE-SENSITIVITY-REPORT.md">NURSE-SENSITIVITY-REPORT.md</a>.</p>
+      <p class="sources">Cruce CSMC-enfermeros-ID19: <a href="nurse_sensitivity_joined_by_csmc.csv">nurse_sensitivity_joined_by_csmc.csv</a>.</p>
+      <p class="sources">Sensibilidad por personal total: <a href="TOTAL-STAFF-SENSITIVITY-REPORT.md">TOTAL-STAFF-SENSITIVITY-REPORT.md</a>.</p>
+      <p class="sources">Cruce CSMC-personal total-ID19: <a href="total_staff_sensitivity_joined_by_csmc.csv">total_staff_sensitivity_joined_by_csmc.csv</a>.</p>
+      <p class="sources">Especificación de este artefacto: <a href="SPEC-executive-decision-html-report.md">SPEC-executive-decision-html-report.md</a>.</p>
+    </section>
+
+    <section>
+      <h2>5 MCQ para revisar comprensión</h2>
+      <article class="quiz" data-correct="B" data-explanation="El reporte es operativo y exploratorio. Sirve para focalizar y negociar, no para declarar el resultado oficial.">
+        <p class="quiz-question">1. ¿Cuál es el uso correcto de este reporte hoy?</p>
+        <div class="mcq-options" role="group" aria-label="Pregunta 1">
+          <button class="choice" type="button" data-option="A"><span class="choice-letter">A</span><span>Declarar el cumplimiento oficial final del ID19.</span></button>
+          <button class="choice" type="button" data-option="B"><span class="choice-letter">B</span><span>Focalizar gestión y preparar negociación técnica.</span></button>
+          <button class="choice" type="button" data-option="C"><span class="choice-letter">C</span><span>Eliminar la necesidad de revisar fuentes.</span></button>
+          <button class="choice" type="button" data-option="D"><span class="choice-letter">D</span><span>Reemplazar la ficha técnica oficial.</span></button>
+        </div>
+        <p class="feedback" aria-live="polite"></p>
+      </article>
+
+      <article class="quiz" data-correct="C" data-explanation="La ficha mide personas únicas en una ventana oficial. El corte actual no deduplica por DNI/CE.">
+        <p class="quiz-question">2. ¿Cuál es el principal bloqueo para usar el resultado como oficial?</p>
+        <div class="mcq-options" role="group" aria-label="Pregunta 2">
+          <button class="choice" type="button" data-option="A"><span class="choice-letter">A</span><span>No hay gráficos suficientes.</span></button>
+          <button class="choice" type="button" data-option="B"><span class="choice-letter">B</span><span>El modelo usa muchas regiones.</span></button>
+          <button class="choice" type="button" data-option="C"><span class="choice-letter">C</span><span>No hay deduplicación por DNI/CE y la ventana oficial no está aplicada.</span></button>
+          <button class="choice" type="button" data-option="D"><span class="choice-letter">D</span><span>El número de CSMC es menor de 100.</span></button>
+        </div>
+        <p class="feedback" aria-live="polite"></p>
+      </article>
+
+      <article class="quiz" data-correct="C" data-explanation="Hay 211 CSMC modelados de 268 CSMC totales.">
+        <p class="quiz-question">3. ¿Cuántos CSMC tienen modelo ARIMA ajustado?</p>
+        <div class="mcq-options" role="group" aria-label="Pregunta 3">
+          <button class="choice" type="button" data-option="A"><span class="choice-letter">A</span><span>99</span></button>
+          <button class="choice" type="button" data-option="B"><span class="choice-letter">B</span><span>148</span></button>
+          <button class="choice" type="button" data-option="C"><span class="choice-letter">C</span><span>211</span></button>
+          <button class="choice" type="button" data-option="D"><span class="choice-letter">D</span><span>268</span></button>
+        </div>
+        <p class="feedback" aria-live="polite"></p>
+      </article>
+
+      <article class="quiz" data-correct="C" data-explanation="El umbral transitorio llega a 148/211 CSMC modelados, equivalente a 70.1%.">
+        <p class="quiz-question">4. ¿Qué escenario alcanza 70% entre CSMC modelados sin paquetes adicionales?</p>
+        <div class="mcq-options" role="group" aria-label="Pregunta 4">
+          <button class="choice" type="button" data-option="A"><span class="choice-letter">A</span><span>Meta vigente oficial.</span></button>
+          <button class="choice" type="button" data-option="B"><span class="choice-letter">B</span><span>Logro esperado nuevo 30%-50%.</span></button>
+          <button class="choice" type="button" data-option="C"><span class="choice-letter">C</span><span>Umbral transitorio 20%-40%.</span></button>
+          <button class="choice" type="button" data-option="D"><span class="choice-letter">D</span><span>Rehacer con definición oficial.</span></button>
+        </div>
+        <p class="feedback" aria-live="polite"></p>
+      </article>
+
+      <article class="quiz" data-correct="B" data-explanation="Médicos, psicólogos, enfermeros y personal total agregan alertas de capacidad, pero no reemplazan la ruta rápida de 30 CSMC y 166 paquetes adicionales sobre la trayectoria proyectada.">
+        <p class="quiz-question">5. ¿Qué cambian los análisis por médicos, psicólogos, enfermeros y personal total?</p>
+        <div class="mcq-options" role="group" aria-label="Pregunta 5">
+          <button class="choice" type="button" data-option="A"><span class="choice-letter">A</span><span>Reemplaza por completo la focalización de 30 CSMC.</span></button>
+          <button class="choice" type="button" data-option="B"><span class="choice-letter">B</span><span>No cambian la ruta rápida, pero agregan una segunda capa de apoyo de RRHH y capacidad.</span></button>
+          <button class="choice" type="button" data-option="C"><span class="choice-letter">C</span><span>Demuestra causalidad entre médicos y cumplimiento ID19.</span></button>
+          <button class="choice" type="button" data-option="D"><span class="choice-letter">D</span><span>Elimina la necesidad de paquetes completos adicionales sobre la trayectoria proyectada.</span></button>
+        </div>
+        <p class="feedback" aria-live="polite"></p>
+      </article>
+    </section>
+  </main>
+  <script>
+    document.querySelectorAll('.quiz').forEach((quiz) => {
+      const correct = quiz.dataset.correct;
+      const explanation = quiz.dataset.explanation;
+      const feedback = quiz.querySelector('.feedback');
+      const choices = quiz.querySelectorAll('.choice');
+
+      choices.forEach((choice) => {
+        choice.addEventListener('click', () => {
+          const selected = choice.dataset.option;
+          const isCorrect = selected === correct;
+
+          choices.forEach((item) => {
+            item.classList.remove('selected', 'correct', 'incorrect');
+            item.setAttribute('aria-pressed', 'false');
+          });
+
+          choice.classList.add('selected', isCorrect ? 'correct' : 'incorrect');
+          choice.setAttribute('aria-pressed', 'true');
+          feedback.className = `feedback ${isCorrect ? 'ok' : 'no'}`;
+          feedback.textContent = `${isCorrect ? 'Correcto.' : 'Incorrecto.'} ${explanation}`;
+        });
+      });
+    });
+  </script>
+</body>
+</html>

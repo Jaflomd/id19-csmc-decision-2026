@@ -1,0 +1,10 @@
+"universe","ci95_status","n_csmc"
+"todos_los_csmc","INCIERTO_CRUZA_META_IC95",162
+"todos_los_csmc","LOGRA_ROBUSTO_IC95",22
+"todos_los_csmc","NO_LOGRA_DENOM_LT30",7
+"todos_los_csmc","NO_LOGRA_ROBUSTO_IC95",20
+"todos_los_csmc","NO_MODELADO",57
+"modelados_arima","INCIERTO_CRUZA_META_IC95",162
+"modelados_arima","LOGRA_ROBUSTO_IC95",22
+"modelados_arima","NO_LOGRA_DENOM_LT30",7
+"modelados_arima","NO_LOGRA_ROBUSTO_IC95",20

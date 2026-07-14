@@ -1,0 +1,8 @@
+"universe","status","n_csmc"
+"todos_los_csmc","LOGRA",99
+"todos_los_csmc","NO_LOGRA",105
+"todos_los_csmc","NO_LOGRA_DENOM_LT30",7
+"todos_los_csmc","NO_MODELADO",57
+"modelados_arima","LOGRA",99
+"modelados_arima","NO_LOGRA",105
+"modelados_arima","NO_LOGRA_DENOM_LT30",7
